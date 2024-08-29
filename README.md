@@ -1,7 +1,7 @@
 # cpp-py-framework
 A framework to follow for integrating c++ code into python with minimal time overhead. 
 
-![img.png](img.png)
+![typehint.png](Docs/typehint.png)
 
 # Currently supported:
 A single c++ package in the following format can be compiled into a python package:
