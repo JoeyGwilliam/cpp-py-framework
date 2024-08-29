@@ -294,11 +294,11 @@ def convert_cpp_to_python_module(cpp_root_namespace: str,
     subprocess.call(f'cmake -G "Visual Studio 17 2022" -DPython_EXECUTABLE={sys.executable} '
                     f'-DCMAKE_PREFIX_PATH={pybind11_path} ./', cwd=build_folder, env=env)
 
-    shutil.copytree(pybind11_include_dir, build_folder / 'pybind11', dirs_exist_ok=True)
+    shutil.copytree(pybind11_include_dir, build_folder, dirs_exist_ok=True)
     shutil.copytree(python_include_dir, build_folder, dirs_exist_ok=True)
 
     subprocess.call(r'"C:\Program Files (x86)\Microsoft Visual '
-                    r'Studio\2022\BuildTools\MSBuild\Current\Bin\msbuild.exe" py_example01.sln '
+                    rf'Studio\2022\BuildTools\MSBuild\Current\Bin\msbuild.exe" {output_module_path.name}.sln '
                     r'/p:Configuration=Release', cwd=build_folder, env=env)
 
     shutil.copy(build_folder / 'Release' / f'_{output_module_name}.cp311-win_amd64.pyd', output_module_path)
@@ -310,20 +310,14 @@ def convert_cpp_to_python_module(cpp_root_namespace: str,
 
 
 if __name__ == "__main__":
-    repository_dir = Path(r'C:\Users\Joeyg\PycharmProjects\cpp-py-framework')
-    include_dir = repository_dir / "src/Example01"
+    cwd = Path.cwd()
 
-    cpp_root_namespace_01 = 'Example01'
-    input_header_files_01 = include_dir / "Example01.h"
-    input_cpp_file_01 = include_dir / "cpp/Example01.cpp"
-    output_module_path_01 = repository_dir / "src/bindings/py_example01"
+    c_package_path = cwd / 'src' / 'Example01'
+    output_module_path = cwd / 'output' / 'output_package01'
 
-    convert_cpp_to_python_module(cpp_root_namespace_01, input_header_files_01, input_cpp_file_01, output_module_path_01)
+    namespace = c_package_path.name
+    header_path = c_package_path / f'{namespace}.h'
+    cpp_path = c_package_path / 'cpp' / f'{namespace}.cpp'
 
-    # must have installed pybind11 using:
-    # git clone
-    # cd pybind11
-    # cmake -S . -B build
-    # cmake --build build -j 2  # Build on 2 cores
-    # cmake --install build
-    # git clone https://github.com/pybind/pybind11.git
+    convert_cpp_to_python_module(namespace, header_path, cpp_path, output_module_path)
+
