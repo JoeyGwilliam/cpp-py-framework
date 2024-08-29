@@ -15,7 +15,7 @@ target_include_directories({cpp_namespace} PUBLIC ${{CMAKE_CURRENT_LIST_DIR}}/..
 
 # Under windows, auto __declspec(dllexport)
 if (WIN32)
-    set_target_properties(Example01 PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+    set_target_properties({cpp_namespace} PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
 '''
 
@@ -309,8 +309,8 @@ def convert_cpp_to_python_module(cpp_root_namespace: str,
 if __name__ == "__main__":
     cwd = Path.cwd()
 
-    c_package_path = cwd / 'src' / 'Example01'
-    output_module_path = cwd / 'output' / 'output_package01'
+    c_package_path = cwd / 'src' / 'Example02'
+    output_module_path = cwd / 'output' / 'output_package02'
 
     namespace = c_package_path.name
     header_path = c_package_path / f'{namespace}.h'
