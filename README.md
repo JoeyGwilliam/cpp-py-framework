@@ -32,3 +32,10 @@ This can then be used as a normal package, including the typehints and docstring
 import PATH_TO_MODULE.MODULE_NAME as package
 package.func()
 ```
+
+# Requirements
+Need to install MSVC build tools
+
+and `pip install -r requirements.txt` believe it or not
+
+Using python `3.11`. I think litgen requires `3.10` minimum

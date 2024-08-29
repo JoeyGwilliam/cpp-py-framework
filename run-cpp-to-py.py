@@ -7,9 +7,6 @@ from pathlib import Path
 
 import litgen
 import pybind11
-from pybind11 import setup_helpers
-from pybind11.setup_helpers import Pybind11Extension, build_ext
-from setuptools import setup
 
 __version__ = "0.0.1"
 
